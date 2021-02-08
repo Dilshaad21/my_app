@@ -17,22 +17,27 @@ class ActionProvider {
     this.addMessageToState(Messages);
   };
 
-  getDocCheck = (status) => {
+  getDocCheck = (nameCheck, phoneCheck, status) => {
     if (status === false) {
       const message = this.createChatBotMessage(
         "Your KYC cannot be done in that case"
       );
       this.addMessageToState(message);
     } else {
-      const messages = [
-        this.createChatBotMessage(
-          "Great! Now the first thing you need to do is that you need to verify your phone number."
-        ),
-        this.createChatBotMessage(
-          "Please send me your number to send you the OTP to verify."
-        ),
-      ];
-      this.addMessageToState(messages);
+      if (nameCheck) {
+          const message = this.createChatBotMessage("Please enter your name as given in your Aadhar");
+          this.addMessageToState(message);
+      } else if(phoneCheck){
+        const messages = [
+          this.createChatBotMessage(
+            "Great! Now the first thing you need to do is that you need to verify your phone number."
+          ),
+          this.createChatBotMessage(
+            "Please send me your number to send you the OTP to verify."
+          ),
+        ];
+        this.addMessageToState(messages);
+      }
     }
   };
 
@@ -61,16 +66,19 @@ class ActionProvider {
     }
   };
 
-  getAadharCheck = (status)=>{
-      if(status===false){
-          const message = this.createChatBotMessage("Aadhar card phone number doesn't match with you phone number");
-          this.addMessageToState(message);
-      }
-      else{
-          const message = this.createChatBotMessage("Aadhar linked phone number verified!");
-          this.addMessageToState(message);
-      }
-  }
+  getAadharCheck = (status) => {
+    if (status === false) {
+      const message = this.createChatBotMessage(
+        "Aadhar card phone number doesn't match with you phone number"
+      );
+      this.addMessageToState(message);
+    } else {
+      const message = this.createChatBotMessage(
+        "Aadhar linked phone number verified!"
+      );
+      this.addMessageToState(message);
+    }
+  };
   addMessageToState = (Messages) => {
     if (Array.isArray(Messages)) {
       this.setState((prevState) => ({

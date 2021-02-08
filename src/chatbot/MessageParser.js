@@ -24,13 +24,18 @@ class MessageParser {
       prevBotMessage ===
         "To complete this you need any of the following: 1. PAN card 2.Aadhar card"
     ) {
-      this.actionProvider.getDocCheck(false);
+      this.actionProvider.getDocCheck(false,false,false);
     } else if (
       newMessage.includes("have") &&
       prevBotMessage ===
         "To complete this you need any of the following: 1. PAN card 2.Aadhar card"
     ) {
-      this.actionProvider.getDocCheck(true);
+        // Check username to verify later in Aadhar
+      this.actionProvider.getDocCheck(true,false,true);
+    }
+    // Username verfied in Aadhar card
+    else if(prevBotMessage==="Please enter your name as given in your Aadhar"){
+        this.actionProvider.getDocCheck(false,true,true);
     }
     // Phone number OTP verify at the beggining
     else if (
